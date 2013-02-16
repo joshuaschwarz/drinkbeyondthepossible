@@ -20,6 +20,7 @@ public class GameMaster : MonoBehaviour {
 		if(score >= 0.08f)
 		{
 			Debug.Log (score);
+			//Looks at each of the blocks that can wobble
 			foreach(GameObject go in wobbleBlocks)	
 			{
 				if(angle)
