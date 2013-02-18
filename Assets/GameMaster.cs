@@ -99,4 +99,15 @@ public class GameMaster : MonoBehaviour {
 		else if(distance <= -displacement)
 			direction = true;
 	}
+	
+	///<summary>
+	///Increments the score by a given amount
+	///</summary>
+	///<param name="increment">
+	///The amount to increase the score by
+	///</param>
+	void IncrementScore (float increment){
+		score += increment;
+	}
+	
 }
