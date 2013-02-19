@@ -119,7 +119,7 @@ public class GameMaster : MonoBehaviour {
 	
 	//Sets the UI layout
 	void OnGUI(){
-		GUI.Box(new Rect(.80f*Screen.width,.03f*Screen.height,.12f*Screen.width,.07f*Screen.height), "Score: " + GetScore ());
+		GUI.Box(new Rect(.80f*Screen.width,.03f*Screen.height,.15f*Screen.width,.07f*Screen.height), "Score: " + GetScore () + " BAC");
 	}
 	
 }
