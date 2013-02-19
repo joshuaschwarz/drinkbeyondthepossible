@@ -26,18 +26,18 @@ public class GameMaster : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(score >= 0.08f && score < 0.16f)
+		if(GetScore () >= 0.08f && GetScore () < 0.16f)
 		{
 			TurnPaddles (1.5f, 1.0f);
 		}
 		
-		if(score >= 0.16f && score < 0.24f)
+		if(GetScore () >= 0.16f && GetScore () < 0.24f)
 		{
 			TurnPaddles (3.0f, 1.2f);
 			ShakeCamera (0.25f, 0.5f);
 		}
 		
-		if(score >= 0.24f)
+		if(GetScore () >= 0.24f)
 		{
 			TurnPaddles (4.0f, 1.3f);
 			ShakeCamera (0.25f, 0.9f);
@@ -108,6 +108,18 @@ public class GameMaster : MonoBehaviour {
 	///</param>
 	void IncrementScore (float increment){
 		score += increment;
+	}
+	
+	///<summary>
+	///Returns the current score
+	///</summary>
+	public float GetScore (){
+		return score;
+	}
+	
+	//Sets the UI layout
+	void OnGUI(){
+		GUI.Box(new Rect(.80f*Screen.width,.03f*Screen.height,.12f*Screen.width,.07f*Screen.height), "Score: " + GetScore ());
 	}
 	
 }
