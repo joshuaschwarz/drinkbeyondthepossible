@@ -33,6 +33,7 @@ public class PlayerMover : MonoBehaviour {
 		else if(moveRight)
 			mover.x = - maxVelocity;
 		
+		
 		mover.y -= gravity * Time.deltaTime;
 		controller.Move (mover*Time.deltaTime);
 	
