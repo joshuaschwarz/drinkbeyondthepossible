@@ -9,12 +9,13 @@ using System.Collections;
 public class GameMaster : MonoBehaviour {
 	
 	private GameObject[] wobbleBlocks;
-	public float score = 0.16f;
 	private bool angle = true;
 	private float ang = 0;
 	private GameObject mainCamera;
 	private float distance = 0;
 	private bool direction = true;
+	public bool gameRunning = true;
+	public float score = 0.16f;
 	
 	// Use this for initialization
 	void Start () {
@@ -26,21 +27,24 @@ public class GameMaster : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(GetScore () >= 0.08f && GetScore () < 0.16f)
+		if(gameRunning)
 		{
-			TurnPaddles (1.5f, 1.0f);
-		}
+			if(GetScore () >= 0.08f && GetScore () < 0.16f)
+			{
+				TurnPaddles (1.5f, 1.0f);
+			}
+			
+			if(GetScore () >= 0.16f && GetScore () < 0.24f)
+			{
+				TurnPaddles (3.0f, 1.2f);
+				ShakeCamera (0.25f, 0.5f);
+			}
 		
-		if(GetScore () >= 0.16f && GetScore () < 0.24f)
-		{
-			TurnPaddles (3.0f, 1.2f);
-			ShakeCamera (0.25f, 0.5f);
-		}
-		
-		if(GetScore () >= 0.24f)
-		{
-			TurnPaddles (4.0f, 1.3f);
-			ShakeCamera (0.25f, 0.9f);
+			if(GetScore () >= 0.24f)
+			{
+				TurnPaddles (4.0f, 1.3f);
+				ShakeCamera (0.25f, 0.9f);
+			}
 		}
 	}
 	
@@ -119,7 +123,15 @@ public class GameMaster : MonoBehaviour {
 	
 	//Sets the UI layout
 	void OnGUI(){
-		GUI.Box(new Rect(.80f*Screen.width,.03f*Screen.height,.15f*Screen.width,.07f*Screen.height), "Score: " + GetScore () + " BAC");
+		if(gameRunning)
+			GUI.Box(new Rect(.80f*Screen.width,.03f*Screen.height,.15f*Screen.width,.07f*Screen.height), "Score: " + GetScore () + " BAC");
 	}
 	
+	///<summary>
+	///Starts the game sequence
+	///</summary>
+	void StartGame()
+	{
+		gameRunning = true;
+	}
 }
