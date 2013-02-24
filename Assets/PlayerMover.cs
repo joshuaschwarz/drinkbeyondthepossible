@@ -6,6 +6,9 @@ public class PlayerMover : MonoBehaviour {
 	public float maxVelocity = 10.0f;
 	public float jumpVelocity = 10.0f;
 	public float gravity = 10.0f;
+	public bool moveLeft = Input.GetKey (KeyCode.LeftArrow);
+	public bool moveRight = Input.GetKey (KeyCode.RightArrow);
+	
 	private Vector3 mover = Vector3.zero;
 
 	// Use this for initialization
@@ -17,7 +20,7 @@ public class PlayerMover : MonoBehaviour {
 	void Update () {
 		CharacterController controller = GetComponent<CharacterController>();
 		bool moveLeft = Input.GetKey (KeyCode.LeftArrow);
-		bool moveRight = Input.GetKey (KeyCode.RightArrow);
+	    bool moveRight = Input.GetKey (KeyCode.RightArrow);
 		
 		if(controller.isGrounded) {
 			mover = new Vector3(Input.GetAxis ("Horizontal"),Input.GetAxis("Vertical"),0);

@@ -13,9 +13,9 @@ public class Beer : MonoBehaviour {
 	void Update () {
 	
 	}
-	void OnTriggerEnter (other Collider) {
+	void OnTriggerEnter (Collider other) {
     if(other.tag == "Player"){
-			GameMaster.GetComponent("GameMaster").IncrementScore();
+			//GameMaster.GetComponent("GameMaster").IncrementScore();
 			Object.Destroy(this.gameObject);
 		}
 }
