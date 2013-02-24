@@ -6,8 +6,6 @@ public class PlayerMover : MonoBehaviour {
 	public float maxVelocity = 10.0f;
 	public float jumpVelocity = 10.0f;
 	public float gravity = 10.0f;
-	public bool moveLeft = Input.GetKey (KeyCode.LeftArrow);
-	public bool moveRight = Input.GetKey (KeyCode.RightArrow);
 	
 	private Vector3 mover = Vector3.zero;
 
@@ -32,9 +30,9 @@ public class PlayerMover : MonoBehaviour {
 		}
 		
 		if(moveLeft)
-			mover.x = maxVelocity;
-		else if(moveRight)
 			mover.x = - maxVelocity;
+		else if(moveRight)
+			mover.x =  maxVelocity;
 		
 		
 		mover.y -= gravity * Time.deltaTime;

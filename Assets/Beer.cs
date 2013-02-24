@@ -3,9 +3,13 @@ using System.Collections;
 
 public class Beer : MonoBehaviour {
   GameObject GameMaster;
+	
+	GameObject master;
+	public float score = .05f;
 
 	// Use this for initialization
 	void Start () {
+		master = GameObject.Find ("Game Master");
 		var myTexture = Resources.Load("BeerBottle");
 	}
 	
@@ -15,7 +19,7 @@ public class Beer : MonoBehaviour {
 	}
 	void OnTriggerEnter (Collider other) {
     if(other.tag == "Player"){
-			//GameMaster.GetComponent("GameMaster").IncrementScore();
+			master.SendMessage ("IncrementScore", score);
 			Object.Destroy(this.gameObject);
 		}
 }
