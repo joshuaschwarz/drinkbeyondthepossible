@@ -6,7 +6,7 @@ public class Beer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		var myTexture = Resources.Load("BeerBottle");
 	}
 	
 	// Update is called once per frame
