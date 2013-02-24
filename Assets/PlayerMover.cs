@@ -37,6 +37,11 @@ public class PlayerMover : MonoBehaviour {
 		
 		mover.y -= gravity * Time.deltaTime;
 		controller.Move (mover*Time.deltaTime);
+		
+		if(transform.position.y < -20)
+			transform.position = new Vector3(-129,11,0);
+		
+		transform.position = new Vector3(transform.position.x,transform.position.y, 0);
 	
 	}
 }
