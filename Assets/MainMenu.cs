@@ -4,11 +4,13 @@ using System.Collections;
 public class MainMenu : MonoBehaviour {
 	
 	private GameObject master;
+	private GameObject player;
 	private bool gameRunning = false;
 
 	// Use this for initialization
 	void Start () {
 		master = GameObject.Find ("Game Master");
+		player = GameObject.Find ("player");
 	
 	}
 	
@@ -25,6 +27,7 @@ public class MainMenu : MonoBehaviour {
 			{
 				gameRunning = true;
 				master.SendMessage("StartGame");
+				player.SendMessage("StartGame");
 			}
 		}
 	}
