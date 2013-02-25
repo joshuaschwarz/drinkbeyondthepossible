@@ -31,18 +31,18 @@ public class GameMaster : MonoBehaviour {
 		{
 			if(GetScore () >= 0.08f && GetScore () < 0.16f)
 			{
-				TurnPaddles (1.5f, 1.0f);
+				TurnPaddles (.5f, 1.0f);
 			}
 			
 			if(GetScore () >= 0.16f && GetScore () < 0.24f)
 			{
-				TurnPaddles (3.0f, 1.2f);
-				ShakeCamera (0.25f, 0.5f);
+				TurnPaddles (.65f, 1.5f);
+				ShakeCamera (0.25f, 0.7f);
 			}
 		
 			if(GetScore () >= 0.24f)
 			{
-				TurnPaddles (4.0f, 1.3f);
+				TurnPaddles (.8f, 2.0f);
 				ShakeCamera (0.25f, 0.9f);
 			}
 		}
@@ -63,18 +63,20 @@ public class GameMaster : MonoBehaviour {
 			if(angle)
 			{
 				go.transform.RotateAroundLocal (Vector3.forward, speed * Time.fixedDeltaTime);
-				ang += speed * Time.fixedDeltaTime;
 			}
 			else
 			{
 				go.transform.RotateAroundLocal (Vector3.forward, -speed * Time.fixedDeltaTime);
-				ang -= speed * Time.fixedDeltaTime;
 			}
-			if(ang >= maxAngle)
-				angle = false;
-			else if(ang <= -maxAngle)
-				angle = true;
 		}
+		if(angle)
+			ang += speed * Time.fixedDeltaTime;
+		else
+			ang -= speed * Time.fixedDeltaTime;
+		if(ang >= maxAngle)
+			angle = false;
+		else if(ang <= -maxAngle)
+			angle = true;
 	}
 	
 	///<summary>
@@ -91,7 +93,6 @@ public class GameMaster : MonoBehaviour {
 		{
 			mainCamera.transform.Translate (Vector3.up * speed * Time.fixedDeltaTime);
 			distance += speed * Time.fixedDeltaTime;
-			Debug.Log ("Distance " + distance);
 		}
 		else
 		{
