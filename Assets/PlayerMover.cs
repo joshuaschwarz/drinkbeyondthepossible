@@ -21,15 +21,16 @@ public class PlayerMover : MonoBehaviour {
 	// movement vector for character that will be updated every frame
 	private Vector3 mover = Vector3.zero;
 	// stores beginning x coordinate
-	public float xStart = -129.0f;
+	public static float xStart = -129.0f;
 	// stores beginning y coordinate
-	public float yStart = 11.0f;
+	public static float yStart = 11.0f;
 	// stores y height where player falls off
 	public float yDeath = -10.0f;
 
+	GameObject Police;
 	// Use this for initialization
 	void Start () {
-	
+	Police = GameObject.Find ("Police");
 	}
 	
 	// Update is called once per frame
@@ -65,6 +66,8 @@ public class PlayerMover : MonoBehaviour {
 			// moves player according to mover vector calculated above
 			controller.Move (mover*Time.deltaTime);
 		
+			Police.SendMessage ("TrackPlayer", transform.position);
+			
 			// if player falls below level he is snapped back to beginning
 			if(transform.position.y < yDeath)
 				transform.position = new Vector3(xStart,yStart,0);
