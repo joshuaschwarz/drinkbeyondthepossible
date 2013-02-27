@@ -11,6 +11,15 @@ public class GameMaster : MonoBehaviour {
 	//An array of all of the blocks that should wobble as the player gets drunk
 	private GameObject[] wobbleBlocks;
 	
+	//The end of the normal level
+	private GameObject goal;
+	
+	//Has the player reached the goal
+	private bool hasReachedGoal = false;
+	
+	//Does the player have a high enough score for the good ending
+	private bool enoughBeers = false;
+	
 	//An indication of which direction the blocks should wobble
 	private bool angle = true;
 	
@@ -95,10 +104,14 @@ public class GameMaster : MonoBehaviour {
 	//How fast the camera should roll
 	public float cameraRollSpeed = .1f;
 	
+	//The threshold for stage 5
+	public float stage5 = .45f;
+	
 	// Use this for initialization
 	void Start () {
 		wobbleBlocks = GameObject.FindGameObjectsWithTag("wobble"); //Fills the array with all wobbling blocks
 		mainCamera = GameObject.Find ("Main Camera"); //Identifies the camera
+		goal = GameObject.Find ("Goal");
 	}
 	
 	// Update is called once per frame
@@ -122,11 +135,18 @@ public class GameMaster : MonoBehaviour {
 				ShakeCamera (cameraShake2, cameraSpeed3);
 			}
 			
-			if(GetScore () >= stage4)
+			if(GetScore () >= stage4 && GetScore () < stage5)
 			{
 				TurnPaddles (stage4Wobble, stage4WobbleSpeed);
 				ShakeCamera (cameraShake4, cameraSpeed4);
 				RollCamera (cameraRoll, cameraRollSpeed);
+			}
+			
+			if(GetScore() >= stage5)
+			{
+				TurnPaddles (stage4Wobble, stage4WobbleSpeed);
+				ShakeCamera (cameraShake4, cameraSpeed4);
+				mainCamera.transform.RotateAroundLocal (Vector3.forward, cameraRollSpeed * Time.fixedDeltaTime * 2);
 			}
 			if(GetScore () < stage4 && mainCamera.transform.eulerAngles.z != 0)
 				mainCamera.transform.eulerAngles = new Vector3(0,0,0);
@@ -251,5 +271,17 @@ public class GameMaster : MonoBehaviour {
 	void StartGame()
 	{
 		gameRunning = true;
+	}
+	
+	///<summary>
+	///Registers whether or not the player has collected the required amount of beers to win
+	///</summary>
+	///<param name="canWin">
+	///The current state of winning
+	///</param>
+	void setWinState(bool canWin)
+	{
+		enoughBeers = canWin;
+		goal.SendMessage ("setWinState", canWin);
 	}
 }
