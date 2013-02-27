@@ -128,6 +128,8 @@ public class GameMaster : MonoBehaviour {
 				ShakeCamera (cameraShake4, cameraSpeed4);
 				RollCamera (cameraRoll, cameraRollSpeed);
 			}
+			if(GetScore () < stage4 && mainCamera.transform.eulerAngles.z != 0)
+				mainCamera.transform.eulerAngles = new Vector3(0,0,0);
 		}
 	}
 	
@@ -203,12 +205,14 @@ public class GameMaster : MonoBehaviour {
 		{
 			mainCamera.transform.RotateAroundLocal (Vector3.forward, speed*Time.fixedDeltaTime);
 			cameraCurrentAngle += speed*Time.fixedDeltaTime;
+			Debug.Log ("CW");
 		}
 		
 		if(!cameraAng)
 		{
 			mainCamera.transform.RotateAroundLocal (Vector3.forward, -speed*Time.fixedDeltaTime);
 			cameraCurrentAngle -= speed*Time.fixedDeltaTime;
+			Debug.Log ("CCW");
 		}
 		if(cameraCurrentAngle >= cameraAngle)
 			cameraAng = false;
