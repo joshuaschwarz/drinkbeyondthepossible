@@ -17,7 +17,7 @@ public class PlayerMover : MonoBehaviour {
 	// gravity to dictate player falling back down after jump
 	public float gravity = 10.0f;
 	// determines whether or not game has been started
-	private bool gameRunning = false;
+	public bool gameRunning = false;
 	// movement vector for character that will be updated every frame
 	private Vector3 mover = Vector3.zero;
 	// stores beginning x coordinate
