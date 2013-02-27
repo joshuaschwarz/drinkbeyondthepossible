@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class Beer : MonoBehaviour {
-	GameObject master;
-	public float score = 0.05f;
+public class Coffee : MonoBehaviour {
+GameObject master;
+	public float score = -0.05f;
 
 	// Use this for initialization
 	void Start () {

@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public class EndZone : MonoBehaviour {
+	public int x = -140;
+	public int y = 14;
+	public int z = 0;
 	
 	void Start()
 	{
@@ -12,7 +15,7 @@ public class EndZone : MonoBehaviour {
 	
 	void OnTriggerEnter (Collider other) {
 	    if(other.tag == "Player"){
-			other.transform.position = new Vector3(-140, 14, 0);
+			other.transform.position = new Vector3(x,y,z);
 		}
 	}
 }
