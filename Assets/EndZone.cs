@@ -13,8 +13,6 @@ public class EndZone : MonoBehaviour {
 	public int zWin = 0;
 	//Whether or not the player has collected enough beers to get the good ending
 	public bool hasWon = false;
-	//The game master
-	private GameObject master;
 	
 	void Start()
 	{
@@ -32,7 +30,6 @@ public class EndZone : MonoBehaviour {
 				other.transform.position = new Vector3(xWin,yWin,zWin);
 				hasWon = false;
 			}
-			
 		}
 	}
 	

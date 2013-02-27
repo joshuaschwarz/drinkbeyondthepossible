@@ -14,12 +14,6 @@ public class GameMaster : MonoBehaviour {
 	//The end of the normal level
 	private GameObject goal;
 	
-	//Has the player reached the goal
-	private bool hasReachedGoal = false;
-	
-	//Does the player have a high enough score for the good ending
-	private bool enoughBeers = false;
-	
 	//An indication of which direction the blocks should wobble
 	private bool angle = true;
 	
@@ -121,18 +115,21 @@ public class GameMaster : MonoBehaviour {
 			if(GetScore () >= stage1 && GetScore () < stage2) //Executes the actions assocciated with the first stage of drunkeness
 			{
 				TurnPaddles (stage1Wobble, stage1WobbleSpeed);
+				goal.SendMessage ("setWinState", false);
 			}
 			
 			if(GetScore () >= stage2 && GetScore () < stage3) //Executes the actions assocciated with the second stage of drunkeness
 			{
 				TurnPaddles (stage2Wobble, stage2WobbleSpeed);
 				ShakeCamera (cameraShake2, cameraSpeed2);
+				goal.SendMessage ("setWinState", false);
 			}
 		
 			if(GetScore () >= stage3 && GetScore () <=stage4) //Executes the actions assocciated with the third stage of drunkeness
 			{
 				TurnPaddles (stage3Wobble, stage3WobbleSpeed);
 				ShakeCamera (cameraShake2, cameraSpeed3);
+				goal.SendMessage ("setWinState", false);
 			}
 			
 			if(GetScore () >= stage4 && GetScore () < stage5)
@@ -140,6 +137,7 @@ public class GameMaster : MonoBehaviour {
 				TurnPaddles (stage4Wobble, stage4WobbleSpeed);
 				ShakeCamera (cameraShake4, cameraSpeed4);
 				RollCamera (cameraRoll, cameraRollSpeed);
+				goal.SendMessage ("setWinState", true);
 			}
 			
 			if(GetScore() >= stage5)
@@ -147,9 +145,12 @@ public class GameMaster : MonoBehaviour {
 				TurnPaddles (stage4Wobble, stage4WobbleSpeed);
 				ShakeCamera (cameraShake4, cameraSpeed4);
 				mainCamera.transform.RotateAroundLocal (Vector3.forward, cameraRollSpeed * Time.fixedDeltaTime * 2);
+				goal.SendMessage ("setWinState", true);
 			}
+			
 			if(GetScore () < stage4 && mainCamera.transform.eulerAngles.z != 0)
 				mainCamera.transform.eulerAngles = new Vector3(0,0,0);
+			
 		}
 	}
 	
@@ -273,15 +274,5 @@ public class GameMaster : MonoBehaviour {
 		gameRunning = true;
 	}
 	
-	///<summary>
-	///Registers whether or not the player has collected the required amount of beers to win
-	///</summary>
-	///<param name="canWin">
-	///The current state of winning
-	///</param>
-	void setWinState(bool canWin)
-	{
-		enoughBeers = canWin;
-		goal.SendMessage ("setWinState", canWin);
-	}
+
 }
