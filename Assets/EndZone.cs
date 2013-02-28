@@ -24,12 +24,15 @@ public class EndZone : MonoBehaviour {
 	void OnTriggerEnter (Collider other) {
 	    if(other.tag == "Player"){
 			if(!hasWon)
+			{
 				other.transform.position = new Vector3(xJail,yJail,zJail);
+			}
 			if(hasWon)	
 			{
 				other.transform.position = new Vector3(xWin,yWin,zWin);
 				hasWon = false;
 			}
+			GameObject.Find ("Police").SendMessage ("StopOfficer");
 		}
 	}
 	

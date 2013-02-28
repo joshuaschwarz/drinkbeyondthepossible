@@ -51,9 +51,16 @@ using System.Collections.Generic;
 		void OnTriggerEnter (Collider other) {
 	    if(other.tag == "Player"){
 				other.transform.position = new Vector3(EndZone.xJail,EndZone.yJail,EndZone.zJail);
-				playerInJail = true;
+				StopOfficer ();
 			}
 		}
+	
+		void StopOfficer()
+		{
+			playerInJail = true;	
+			ResetOfficer();
+		}
+	
 		//every time the player moves, his position is sent to the AI so that he can trace the player's path
 		void TrackPlayer (Vector3 v){
 			if(playerVectors.Count == 0)
