@@ -1,10 +1,12 @@
+//Andrew Hale
+//Project 2, 2-28-13
 using UnityEngine;
 using System.Collections;
 
 public class EndZone : MonoBehaviour {
-	public static int xJail = -185;
-	public static int yJail = 63;
-	public static int zJail = 0;
+	public static int xJail = -185;//x coordinate of the jail
+	public static int yJail = 63;//y coordinate of the jail
+	public static int zJail = 0;//z coordinate of the jail
 	//The x coordinate of the good ending
 	public int xWin = 0;
 	//The y coordinate of the good ending
@@ -16,23 +18,23 @@ public class EndZone : MonoBehaviour {
 	
 	void Start()
 	{
-		renderer.enabled = false;
+		renderer.enabled = false;//we don't want to actually see the endzone, just move the player
 	}
 	
 	
 	
 	void OnTriggerEnter (Collider other) {
-	    if(other.tag == "Player"){
+	    if(other.tag == "Player"){//check if the player has reached the endzone	
 			if(!hasWon)
 			{
-				other.transform.position = new Vector3(xJail,yJail,zJail);
+				other.transform.position = new Vector3(xJail,yJail,zJail);//send to jail
 			}
 			if(hasWon)	
 			{
-				other.transform.position = new Vector3(xWin,yWin,zWin);
+				other.transform.position = new Vector3(xWin,yWin,zWin);//send to good ending
 				hasWon = false;
 			}
-			GameObject.Find ("Police").SendMessage ("StopOfficer");
+			GameObject.Find ("Police").SendMessage ("StopOfficer");//tell the enemy to stop
 		}
 	}
 	
