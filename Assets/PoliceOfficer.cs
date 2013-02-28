@@ -14,6 +14,7 @@ using System.Collections.Generic;
 		private bool enoughActions = false; //officer also will wait until he has a decent number of actions after he respawns
 		private int delayNumberOfPlayerVectorsAfterRespawn = 100; 
 		private bool stopOfficer = false; //prevent the officer from being nearby and chasing you after he catches you or you win/lose
+		private GameObject menuGui;
 	
 		
 		private float initialXPosition = PlayerMover.xStart; 
@@ -26,6 +27,7 @@ using System.Collections.Generic;
 		// Use this for initialization
 		void Start () {
 		Police = GameObject.Find ("Police");
+		menuGui = GameObject.Find ("Menu");
 		}
 		
 		// Update is called once per frame
@@ -51,6 +53,7 @@ using System.Collections.Generic;
 		//if the player collides with the officer, send player to jail and stop officer
 		void OnTriggerEnter (Collider other) {
 	    if(other.tag == "Player"){
+				menuGui.SendMessage ("setInJail");
 				other.transform.position = new Vector3(EndZone.xJail,EndZone.yJail,EndZone.zJail);
 				StopOfficer ();
 			}

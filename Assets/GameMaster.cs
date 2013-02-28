@@ -135,7 +135,7 @@ public class GameMaster : MonoBehaviour {
 				goal.SendMessage ("setWinState", false);
 			}
 			
-			if(GetScore () >= stage4 && GetScore () < stage5)
+			if(GetScore () >= stage4 && GetScore () < stage5) //Fourth stage drunkeness
 			{
 				TurnPaddles (stage4Wobble, stage4WobbleSpeed);
 				ShakeCamera (cameraShake4, cameraSpeed4);
@@ -143,17 +143,17 @@ public class GameMaster : MonoBehaviour {
 				goal.SendMessage ("setWinState", true);
 			}
 			
-			if(GetScore() >= stage5)
+			if(GetScore() >= stage5)  //Fifth stage drunkeness
 			{
 				TurnPaddles (stage4Wobble, stage4WobbleSpeed);
 				ShakeCamera (cameraShake4, cameraSpeed4);
 				mainCamera.transform.RotateAroundLocal (Vector3.forward, cameraRollSpeed * Time.fixedDeltaTime * (2+ (GetScore ()-stage5)* 
-					spinIncreaseFactor));
+					spinIncreaseFactor)); //Rotates the camera faster as more beers are collected
 				goal.SendMessage ("setWinState", true);
 			}
 			
 			if(GetScore () < stage4 && mainCamera.transform.eulerAngles.z != 0)
-				mainCamera.transform.eulerAngles = new Vector3(0,0,0);
+				mainCamera.transform.eulerAngles = new Vector3(0,0,0);  //Resets the camera if the player goes under a certain amount
 			
 		}
 	}
@@ -179,10 +179,12 @@ public class GameMaster : MonoBehaviour {
 				go.transform.RotateAroundLocal (Vector3.forward, -speed * Time.fixedDeltaTime);
 			}
 		}
+		//Increments/decrements rotation counter
 		if(angle)
 			ang += speed * Time.fixedDeltaTime;
 		else
 			ang -= speed * Time.fixedDeltaTime;
+		//Switches rotation direction
 		if(ang >= maxAngle)
 			angle = false;
 		else if(ang <= -maxAngle)
@@ -199,16 +201,20 @@ public class GameMaster : MonoBehaviour {
 	///How fast the camera will move
 	///</param>
 	void ShakeCamera (float displacement, float speed) {
+		//Moves camera up or down
 		if(direction)
 		{
 			mainCamera.transform.Translate (Vector3.up * speed * Time.fixedDeltaTime, Space.World);
+			//Decrements movement total
 			distance += speed * Time.fixedDeltaTime;
 		}
 		else
 		{
 			mainCamera.transform.Translate (Vector3.up * -speed * Time.fixedDeltaTime, Space.World);
+			//Decrements movement total
 			distance -= speed * Time.fixedDeltaTime;
 		}
+		//Switches movement dirction
 		if(distance >= displacement)
 			direction = false;
 		else if(distance <= -displacement)
@@ -226,22 +232,22 @@ public class GameMaster : MonoBehaviour {
 	///</param>
 	void RollCamera(float cameraAngle, float speed)
 	{
+		//Rotates camera in a specified direction
 		if(cameraAng)
 		{
 			mainCamera.transform.RotateAroundLocal (Vector3.forward, speed*Time.fixedDeltaTime);
 			cameraCurrentAngle += speed*Time.fixedDeltaTime;
-			Debug.Log ("CW");
 		}
 		
 		if(!cameraAng)
 		{
 			mainCamera.transform.RotateAroundLocal (Vector3.forward, -speed*Time.fixedDeltaTime);
 			cameraCurrentAngle -= speed*Time.fixedDeltaTime;
-			Debug.Log ("CCW");
 		}
+		//Switches directon on rotation
 		if(cameraCurrentAngle >= cameraAngle)
 			cameraAng = false;
-		if(cameraCurrentAngle <= -cameraAngle)
+		else if(cameraCurrentAngle <= -cameraAngle)
 			cameraAng = true;
 		
 	}

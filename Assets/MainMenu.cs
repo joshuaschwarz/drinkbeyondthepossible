@@ -18,6 +18,9 @@ public class MainMenu : MonoBehaviour {
 	
 	//Has the player entered the jail?
 	private bool isInJail = false;
+	
+	//The game over screen
+	public Texture2D gameOver;
 
 	// Use this for initialization
 	void Start () {
@@ -38,16 +41,16 @@ public class MainMenu : MonoBehaviour {
 		{
 		if(GUI.Button (new Rect(.5f*Screen.width - 30, .5f*Screen.height, 60f, 20f), "Play"))  //Creates a gui button and monitors if it is pressed
 			{
-				gameRunning = true;
-				master.SendMessage("StartGame");
-				player.SendMessage("StartGame");
+				gameRunning = true; //Removes the button
+				master.SendMessage("StartGame");  //Starts the gamemaster
+				player.SendMessage("StartGame");  //Starts the player
 			}
 		}
 		
 		if(isInJail)
 		{
-			GUI.Box (new Rect(.7f*Screen.width - .1f*Screen.width, .5f*Screen.height - .05f*Screen.height, .2f*Screen.width, .1f*Screen.width),
-				"Game Over");
+			GUI.Box (new Rect(.5f*Screen.width - .1f*Screen.width, .7f*Screen.height - .05f*Screen.height, .2f*Screen.width, .1f*Screen.width),
+				gameOver);  //The game over screen
 		}
 	}
 	

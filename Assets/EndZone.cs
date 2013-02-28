@@ -30,7 +30,7 @@ public class EndZone : MonoBehaviour {
 			if(!hasWon)
 			{
 				other.transform.position = new Vector3(xJail,yJail,zJail);//send to jail
-				menuGUI.SendMessage ("setInJail");
+				menuGUI.SendMessage ("setInJail");  //Displays game over screen
 			}
 			if(hasWon)	
 			{
