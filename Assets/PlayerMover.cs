@@ -26,11 +26,13 @@ public class PlayerMover : MonoBehaviour {
 	public static float yStart = 11.0f;
 	// stores y height where player falls off
 	public float yDeath = -10.0f;
-
-	GameObject Police;
+	// Stores reference to police AI
+	private GameObject Police;
+	
 	// Use this for initialization
 	void Start () {
-	Police = GameObject.Find ("Police");
+		// finds police AI
+		Police = GameObject.Find ("Police");
 	}
 	
 	// Update is called once per frame
@@ -66,12 +68,14 @@ public class PlayerMover : MonoBehaviour {
 			// moves player according to mover vector calculated above
 			controller.Move (mover*Time.deltaTime);
 		
+			// sends police AI player's position so he can follow the player
 			Police.SendMessage ("TrackPlayer", transform.position);
 			
 			// if player falls below level he is snapped back to beginning
 			if(transform.position.y < yDeath)
 			{
 				transform.position = new Vector3(xStart,yStart,0);
+				// Sends a message to restart police officer chasing you
 				Police.SendMessage ("ResetOfficer");
 			}
 		
