@@ -101,6 +101,9 @@ public class GameMaster : MonoBehaviour {
 	//The threshold for stage 5
 	public float stage5 = .45f;
 	
+	//How fast the spin increases in stage 5
+	public float spinIncreaseFactor = 20f;
+	
 	// Use this for initialization
 	void Start () {
 		wobbleBlocks = GameObject.FindGameObjectsWithTag("wobble"); //Fills the array with all wobbling blocks
@@ -144,7 +147,8 @@ public class GameMaster : MonoBehaviour {
 			{
 				TurnPaddles (stage4Wobble, stage4WobbleSpeed);
 				ShakeCamera (cameraShake4, cameraSpeed4);
-				mainCamera.transform.RotateAroundLocal (Vector3.forward, cameraRollSpeed * Time.fixedDeltaTime * 2);
+				mainCamera.transform.RotateAroundLocal (Vector3.forward, cameraRollSpeed * Time.fixedDeltaTime * (2+ (GetScore ()-stage5)* 
+					spinIncreaseFactor));
 				goal.SendMessage ("setWinState", true);
 			}
 			
