@@ -7,6 +7,7 @@ using System.Collections.Generic;
 		GameObject Police;
 		public List<Vector3> playerVectors = new List<Vector3>();
 		private bool go = false; //police officer won't start moving until the player starts running away
+		private bool enoughActions = false;
 		
 		private float initialXPosition = PlayerMover.xStart;
 		private float initialYPosition = PlayerMover.yStart + 1000; //put the officer off screen until he starts following the player
@@ -28,28 +29,34 @@ using System.Collections.Generic;
 				playerVectors.RemoveAt(0);
 			}
 		
-			if(go && playerVectors.Count > 0)
+			if(playerVectors.Count > 100)
+			{
+				enoughActions = true;	
+			}
+		
+			if(go && enoughActions && playerVectors.Count > 0)
 			{
 				Police.transform.position = playerVectors[0];
 				playerVectors.RemoveAt(0);
 			}
-			else
-			{
-				if(playerVectors.Count > 100)
-				{
-					go = true;	
-				}
-			}
 		}
 		
 		void TrackPlayer (Vector3 v){
-			playerVectors.Add(v);
+			if(playerVectors.Count == 0)
+				playerVectors.Add (v);
+			if(playerVectors[playerVectors.Count - 1] != v)
+				playerVectors.Add(v);
 		}	
 	
 		void ResetOfficer()
 		{
 			Police.transform.position = new Vector3(initialXPosition,initialYPosition,0);
-			go = false;
 			playerVectors.Clear ();
+			enoughActions = false;
+		}
+	
+		void StartOfficer()
+		{
+			go = true;
 		}
 	}

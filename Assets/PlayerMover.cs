@@ -70,7 +70,10 @@ public class PlayerMover : MonoBehaviour {
 			
 			// if player falls below level he is snapped back to beginning
 			if(transform.position.y < yDeath)
+			{
 				transform.position = new Vector3(xStart,yStart,0);
+				Police.SendMessage ("ResetOfficer");
+			}
 		
 			// Ensures that z position is always zero at the end of an update
 			transform.position = new Vector3(transform.position.x,transform.position.y, 0);

@@ -8,7 +8,6 @@ GameObject master;
 	// Use this for initialization
 	void Start () {
 		master = GameObject.Find ("Game Master");
-		var myTexture = Resources.Load("BeerBottle");
 	}
 	
 	// Update is called once per frame
