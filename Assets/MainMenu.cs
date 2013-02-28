@@ -15,6 +15,9 @@ public class MainMenu : MonoBehaviour {
 	
 	//Has the player pressed the start button
 	private bool gameRunning = false;
+	
+	//Has the player entered the jail?
+	private bool isInJail = false;
 
 	// Use this for initialization
 	void Start () {
@@ -40,5 +43,17 @@ public class MainMenu : MonoBehaviour {
 				player.SendMessage("StartGame");
 			}
 		}
+		
+		if(isInJail)
+		{
+			GUI.Box (new Rect(.7f*Screen.width - .1f*Screen.width, .5f*Screen.height - .05f*Screen.height, .2f*Screen.width, .1f*Screen.width),
+				"Game Over");
+		}
+	}
+	
+	//Designates that the player is in jail
+	void setInJail()
+	{
+		isInJail = true;
 	}
 }

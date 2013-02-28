@@ -15,10 +15,12 @@ public class EndZone : MonoBehaviour {
 	public int zWin = 0;
 	//Whether or not the player has collected enough beers to get the good ending
 	public bool hasWon = false;
+	private GameObject menuGUI;
 	
 	void Start()
 	{
 		renderer.enabled = false;//we don't want to actually see the endzone, just move the player
+		menuGUI = GameObject.Find ("Menu");
 	}
 	
 	
@@ -28,6 +30,7 @@ public class EndZone : MonoBehaviour {
 			if(!hasWon)
 			{
 				other.transform.position = new Vector3(xJail,yJail,zJail);//send to jail
+				menuGUI.SendMessage ("setInJail");
 			}
 			if(hasWon)	
 			{
