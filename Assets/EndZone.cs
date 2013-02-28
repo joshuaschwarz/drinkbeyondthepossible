@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public class EndZone : MonoBehaviour {
-	public int xJail = -140;
-	public int yJail = 14;
-	public int zJail = 0;
+	public static int xJail = -185;
+	public static int yJail = 63;
+	public static int zJail = 0;
 	//The x coordinate of the good ending
 	public int xWin = 0;
 	//The y coordinate of the good ending

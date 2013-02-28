@@ -12,10 +12,12 @@ using System.Collections.Generic;
 		public List<Vector3> playerVectors = new List<Vector3>();
 		private bool go = false; //police officer won't start moving until the player starts running away
 		private bool enoughActions = false;
-		
+		private bool playerInJail = false;
+	
+		private int delayNumberOfPlayerVectorsAfterRespawn = 100;
 		private float initialXPosition = PlayerMover.xStart;
 		private float initialYPosition = PlayerMover.yStart + 1000; //put the officer off screen until he starts following the player
-	
+
 		public PoliceOfficer ()
 		{
 		}
@@ -33,18 +35,25 @@ using System.Collections.Generic;
 				playerVectors.RemoveAt(0);
 			}
 		
-			if(playerVectors.Count > 100)
+			if(playerVectors.Count > delayNumberOfPlayerVectorsAfterRespawn)
 			{
 				enoughActions = true;	
 			}
 		
-			if(go && enoughActions && playerVectors.Count > 0)
+			if(go && enoughActions && playerInJail == false && playerVectors.Count > 0)
 			{
 				Police.transform.position = playerVectors[0];
 				playerVectors.RemoveAt(0);
 			}
 		}
 		
+	
+		void OnTriggerEnter (Collider other) {
+	    if(other.tag == "Player"){
+				other.transform.position = new Vector3(EndZone.xJail,EndZone.yJail,EndZone.zJail);
+				playerInJail = true;
+			}
+		}
 		//every time the player moves, his position is sent to the AI so that he can trace the player's path
 		void TrackPlayer (Vector3 v){
 			if(playerVectors.Count == 0)
