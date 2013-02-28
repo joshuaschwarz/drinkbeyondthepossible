@@ -11,11 +11,12 @@ using System.Collections.Generic;
 		GameObject Police;
 		public List<Vector3> playerVectors = new List<Vector3>();
 		private bool go = false; //police officer won't start moving until the player starts running away
-		private bool enoughActions = false;
-		private bool playerInJail = false;
+		private bool enoughActions = false; //officer also will wait until he has a decent number of actions after he respawns
+		private int delayNumberOfPlayerVectorsAfterRespawn = 100; 
+		private bool stopOfficer = false; //prevent the officer from being nearby and chasing you after he catches you or you win/lose
 	
-		private int delayNumberOfPlayerVectorsAfterRespawn = 100;
-		private float initialXPosition = PlayerMover.xStart;
+		
+		private float initialXPosition = PlayerMover.xStart; 
 		private float initialYPosition = PlayerMover.yStart + 1000; //put the officer off screen until he starts following the player
 
 		public PoliceOfficer ()
@@ -40,14 +41,14 @@ using System.Collections.Generic;
 				enoughActions = true;	
 			}
 		
-			if(go && enoughActions && playerInJail == false && playerVectors.Count > 0)
+			if(go && enoughActions && stopOfficer == false && playerVectors.Count > 0)
 			{
 				Police.transform.position = playerVectors[0];
 				playerVectors.RemoveAt(0);
 			}
 		}
 		
-	
+		//if the player collides with the officer, send player to jail and stop officer
 		void OnTriggerEnter (Collider other) {
 	    if(other.tag == "Player"){
 				other.transform.position = new Vector3(EndZone.xJail,EndZone.yJail,EndZone.zJail);
@@ -55,21 +56,24 @@ using System.Collections.Generic;
 			}
 		}
 	
+		//reset the officer (place offscreen)
+		//and prevent the officer from continuting to chase you via the stopOfficer flag
 		void StopOfficer()
 		{
-			playerInJail = true;	
+			stopOfficer = true;	
 			ResetOfficer();
 		}
 	
 		//every time the player moves, his position is sent to the AI so that he can trace the player's path
 		void TrackPlayer (Vector3 v){
-			if(playerVectors.Count == 0)
+			if(playerVectors.Count == 0)//if there are no vectors yet, no need to compare to the last vector
 				playerVectors.Add (v);
-			if(playerVectors[playerVectors.Count - 1] != v)
+			else if(playerVectors[playerVectors.Count - 1] != v)	//exclude duplicate vectors in a row
 				playerVectors.Add(v);
 		}	
 	
 		//this message is sent to the officer when the player dies.
+		//it hides him off screen and deletes old player tracking data
 		void ResetOfficer()
 		{
 			Police.transform.position = new Vector3(initialXPosition,initialYPosition,0);
