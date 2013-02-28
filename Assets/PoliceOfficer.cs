@@ -1,3 +1,7 @@
+/**
+ * Methods that control the AI Police Officer that chases the player
+ * Author: Joshua Schwarz
+ **/
 using UnityEngine;
 using System;
 using System.Collections.Generic;
@@ -41,6 +45,7 @@ using System.Collections.Generic;
 			}
 		}
 		
+		//every time the player moves, his position is sent to the AI so that he can trace the player's path
 		void TrackPlayer (Vector3 v){
 			if(playerVectors.Count == 0)
 				playerVectors.Add (v);
@@ -48,6 +53,7 @@ using System.Collections.Generic;
 				playerVectors.Add(v);
 		}	
 	
+		//this message is sent to the officer when the player dies.
 		void ResetOfficer()
 		{
 			Police.transform.position = new Vector3(initialXPosition,initialYPosition,0);
@@ -55,6 +61,7 @@ using System.Collections.Generic;
 			enoughActions = false;
 		}
 	
+		//this message is sent to the officer when the player has his first beer.
 		void StartOfficer()
 		{
 			go = true;
